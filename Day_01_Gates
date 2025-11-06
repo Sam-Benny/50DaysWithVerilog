@@ -1,0 +1,18 @@
+module gates(
+  and_out, or_out, not_out, nand_out, nor_out, xor_out, xnor_out, buffer_out,
+  a_in, b_in
+);
+
+input a_in, b_in;
+output and_out, or_out, not_out, nand_out, nor_out, xor_out, xnor_out, buffer_out;
+
+and  dut1 (and_out, a_in, b_in);
+or   dut2 (or_out, a_in, b_in);
+not  dut3 (not_out, a_in);
+nand dut4 (nand_out, a_in, b_in);
+nor  dut5 (nor_out, a_in, b_in);
+xor  dut6 (xor_out, a_in, b_in);
+xnor dut7 (xnor_out, a_in, b_in);
+buf  dut8 (buffer_out, a_in);
+
+endmodule

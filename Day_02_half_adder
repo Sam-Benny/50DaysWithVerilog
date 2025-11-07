@@ -1,1 +1,9 @@
+module half_adder( sum_out, carry_out, a_in, b_in );
 
+input a_in, b_in;
+output sum_out, carry_out;
+
+xor dut1(sum_out, a_in, b_in);
+and dut2(carry_out, a_in, b_in);
+
+endmodule

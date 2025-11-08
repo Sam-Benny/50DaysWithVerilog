@@ -1,0 +1,67 @@
+// Main Module 
+
+module full_adder(
+    sum_out, carry_out, a_in, b_in, c_in,
+    and1_out, and2_out, and3_out
+);
+
+input a_in, b_in, c_in;
+output sum_out, carry_out, and1_out, and2_out, and3_out;
+
+// Sum
+xor op1(sum_out, a_in, b_in, c_in);
+
+
+// Carry
+and and1(and1_out, a_in, b_in);
+and and2(and2_out, b_in, c_in);
+and and3(and3_out, a_in, c_in);
+or  op2(carry_out, and1_out, and2_out, and3_out);
+
+
+endmodule
+
+
+
+//Test Bench 
+
+module tb_full_adder;
+
+reg tb_a_in, tb_b_in, tb_c_in;
+wire tb_sum_out, tb_carry_out, tb_and1_out, tb_and2_out, tb_and3_out;
+
+full_adder op ( .a_in(tb_a_in), .b_in(tb_b_in), .c_in(tb_c_in), .and1_out(tb_and1_out), .and2_out(tb_and2_out), .and3_out(tb_and3_out),
+                .sum_out(tb_sum_out), .carry_out(tb_carry_out)
+);
+
+ 
+initial begin
+
+        tb_a_in = 1'b0; tb_b_in = 1'b0; tb_c_in = 1'b0;
+    #10 tb_a_in = 1'b0; tb_b_in = 1'b0; tb_c_in = 1'b1;
+    #10 tb_a_in = 1'b0; tb_b_in = 1'b1; tb_c_in = 1'b0;
+    #10 tb_a_in = 1'b0; tb_b_in = 1'b1; tb_c_in = 1'b1;
+    #10 tb_a_in = 1'b1; tb_b_in = 1'b0; tb_c_in = 1'b0;
+    #10 tb_a_in = 1'b1; tb_b_in = 1'b0; tb_c_in = 1'b1;
+    #10 tb_a_in = 1'b1; tb_b_in = 1'b1; tb_c_in = 1'b0;
+    #10 tb_a_in = 1'b1; tb_b_in = 1'b1; tb_c_in = 1'b1;
+
+    #10 $finish;
+
+end
+
+initial begin
+
+    $monitor("\ntb_a_in=%b  tb_b_in=%b  tb_c_in=%b  tb_sum_out=%b  tb_carry_out=%b",
+                tb_a_in, tb_b_in, tb_c_in, tb_sum_out, tb_carry_out);
+end
+
+initial begin
+
+    $dumpfile("tb_full_adder.vcd");
+    $dumpvars(0, tb_full_adder);
+
+end
+
+endmodule
+
